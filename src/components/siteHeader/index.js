@@ -40,7 +40,6 @@ const SiteHeader = ( ) => {
   };
   useEffect(() => {
     if (loading) return;
-    if (!user) return navigate("/");
     fetchUserName();
   }, [user, loading]);
   const menuOptions = [
@@ -66,7 +65,7 @@ const SiteHeader = ( ) => {
       <AppBar position="fixed" color="secondary">
         <Toolbar>
           <div>{user?.displayName}</div>
-         <div>{user?.email}</div>
+         <div id ="user_display_email">{user?.email}</div>
           <Typography variant="h4" sx={{ flexGrow: 1 }}>
             TMDB Client
           </Typography>
