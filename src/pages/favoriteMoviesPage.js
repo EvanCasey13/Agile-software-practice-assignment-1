@@ -1,4 +1,6 @@
 import React, { useContext } from "react";
+import AuthContext from "../AuthContext";
+import { Navigate } from 'react-router-dom';
 import PageTemplate from "../components/templateMovieListPage";
 import { MoviesContext } from "../contexts/moviesContext";
 import { useQueries } from "react-query";
@@ -6,8 +8,10 @@ import { getMovie } from "../api/tmdb-api";
 import Spinner from '../components/spinner'
 import RemoveFromFavorites from "../components/cardIcons/removeFromFavorites";
 import WriteReview from "../components/cardIcons/writeReview";
+import SiteHeader from './../components/siteHeader'
 
 const FavoriteMoviesPage = () => {
+
   const {favorites: movieIds } = useContext(MoviesContext);
 
   // Create an array of queries and run in parallel.
@@ -34,6 +38,8 @@ const FavoriteMoviesPage = () => {
   const toDo = () => true;
 
   return (
+    <div>
+    <SiteHeader />
     <PageTemplate
       title="Favorite Movies"
       movies={movies}
@@ -46,6 +52,7 @@ const FavoriteMoviesPage = () => {
         );
       }}
     />
+    </div>
   );
 };
 

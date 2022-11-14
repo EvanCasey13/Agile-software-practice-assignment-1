@@ -9,10 +9,10 @@ function ActorListPageTemplate({ actors, name, action }) {
   const genreId = Number(genreFilter);
 
   let displayedActors = actors
-    .filter((a) => {
+    ?.filter((a) => {
       return a.name.toLowerCase().search(nameFilter.toLowerCase()) !== -1;
     })
-    .filter((a) => {
+    ?.filter((a) => {
       return genreId > 0 ? a.genre_ids.includes(genreId) : true;
     });
 
@@ -27,7 +27,6 @@ function ActorListPageTemplate({ actors, name, action }) {
         <Header name={name} />
       </Grid>
       <Grid item container spacing={5}>
-      
         <ActorList action={action} actors={displayedActors}></ActorList>
       </Grid>
     </Grid>

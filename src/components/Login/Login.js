@@ -39,7 +39,7 @@ function Login() {
             placeholder="Password" id="login-password" label="Password" variant="standard" />
           <br />
           <Button className="login__btn"
-            onClick={() => logInWithEmailAndPassword(email, password)} id ="login_button"variant="outlined">Login</Button>
+            onClick={() => logInWithEmailAndPassword(email, password)} variant="outlined" id="login_button">Login</Button>
           <br />
           <Button className="login__btn login__google" onClick={signInWithGoogle} variant="outlined">Login with Google</Button>
           <br />
