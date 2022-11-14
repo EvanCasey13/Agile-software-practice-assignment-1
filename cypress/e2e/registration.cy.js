@@ -1,3 +1,5 @@
+import '../support/commands'
+
 describe("Registration use case", () => {
 
     describe("Navigate to the registration page", () => {
@@ -8,15 +10,12 @@ describe("Registration use case", () => {
     
     describe("Register account", () => {
     it("Enter account details & Register then Check if user logged in, then logout", () => {   
-        cy.get("button").contains("Register").click();  
+        cy.clickButton("Register");  
         cy.url().should("include", `/register`);
          
         const accountName = "Evan1234";
         const email = "evancasey1234@gmail.com";
         const password = "1234567";
-
-        cy.get("button").contains("Register").click();  
-        cy.url().should("include", `/register`);
         
         cy.get("#registration-name").clear().type(accountName);   
         cy.get("#registration-email").clear().type(email); 
@@ -25,7 +24,7 @@ describe("Registration use case", () => {
         cy.get("#register_movie_app_button").contains("Register").click();
 
         cy.get("#user_display_email").contains(email);
-        cy.get("button").contains("Logout").click();  
+        cy.clickButton("Logout");  
     });
     });
 });
