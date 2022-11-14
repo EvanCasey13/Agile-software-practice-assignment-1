@@ -8,9 +8,10 @@ import UpcomingMoviesPage from "./pages/upcomingMoviesPage";
 import ShowPage from "./pages/tvDetailsPage";
 import ActorPage from "./pages/actorDetailsPage";
 import TvPopularPage from "./pages/tvPopularPage";
-import SearchPage from "./pages/searchPage";
+import SearchMoviePage from "./pages/searchMoviePage";
+import SearchShowPage from "./pages/searchTVShowPage";
+import SearchActorPage from "./pages/searchActorPage";
 import ActorPopularPage from "./pages/actorsPage";
-import SiteHeader from './components/siteHeader'
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Reset from "./components/Reset/Reset";
@@ -18,6 +19,7 @@ import AddMovieReviewPage from './pages/addMovieReviewPage'
 import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { createRoot } from "react-dom/client";
+import { AuthProvider } from "./AuthProvider";
 import MoviesContextProvider from "./contexts/moviesContext";
 
 const queryClient = new QueryClient({
@@ -35,27 +37,28 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
     <BrowserRouter>
-    <SiteHeader />
     <MoviesContextProvider>
+    <AuthProvider>
     <Routes>
     <Route path="/shows/popular" element={<TvPopularPage />} />
       <Route path="/actors/popular" element={<ActorPopularPage />} />
-      <Route path="/actor/:page" element={<ActorPopularPage />} />
       <Route path="/actors/:id" element={<ActorPage />} />
       <Route path="/shows/:id" element={<ShowPage />} />
-      <Route path="/show/:page" element={<TvPopularPage />} />
       <Route path="/reviews/:id" element={ <MovieReviewPage /> } />
       <Route path="/reviews/form" element={ <AddMovieReviewPage /> } />
       <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
       <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} />
       <Route path="/movies/:id" element={<MoviePage />} />
-      <Route path="/search" element={<SearchPage />} />
+      <Route path="/movies/search" element={<SearchMoviePage />} />
+      <Route path="/shows/search" element={<SearchShowPage />} />
+      <Route path="/actors/search" element={<SearchActorPage />} />
       <Route path="/login" element={<Login />} />
       <Route exact path="/register" element={<Register />} />
       <Route exact path="/reset" element={<Reset />} />
       <Route path="/" element={<HomePage />} />
       <Route path="*" element={ <Navigate to="/" /> } />
     </Routes>
+    </AuthProvider>
     </MoviesContextProvider>
   </BrowserRouter>
   <ReactQueryDevtools initialIsOpen={false} />

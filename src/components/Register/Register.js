@@ -34,7 +34,6 @@ function Register() {
         <form className="form">
           <TextField type="text"
             className="register__textBox"
-            id="registration-name"
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Full Name"
@@ -42,7 +41,6 @@ function Register() {
           <br />
           <TextField type="text"
             className="register__textBox"
-            id="registration-email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Email Address"
@@ -50,13 +48,12 @@ function Register() {
           <br />
           <TextField type="password"
             className="register__textBox"
-            id="registration-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
             variant="standard" />
           <br />
-          <Button className="register__btn" id="register_movie_app_button" onClick={register} variant="outlined">Register</Button>
+          <Button className="register__btn" onClick={register} variant="outlined">Register</Button>
           <br />
           <Button className="register__btn register__google"
             onClick={signInWithGoogle} variant="outlined">Register with Google</Button>

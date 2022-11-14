@@ -1,3 +1,5 @@
+import '../support/commands'
+
 let movies;
 let slug = 'Blade runner'
 
@@ -17,48 +19,39 @@ describe("The search movie feature.", () => {
 
 describe("Navigate to search movie page.", () => {
     it("Navigated to search movies page.", () => {
-      cy.visit("/search");
+      cy.visit("/movies/search");
     });
   });
 
   describe("Enter Blade runner and search for movies.", () => {
     it("Blade runner searched for.", () => {
-        cy.get("#filled-search").clear().type('Blade Runner{enter}');   
+        cy.search('Blade Runner');   
     });
   });
 
   describe("Add both blade runner films to favourites.", () => {
     it("Favourite both Blade runner films.", () => {
-        cy.get("button[aria-label='add to favorites']").eq(1).click();
-        cy.get("button[aria-label='add to favorites']").eq(0).click();
-        cy.get("button").contains("Favorites").click();  
+        cy.addToFavourites(1);
+        cy.addToFavourites(0);
+        cy.clickButton("Favorites");  
     });
 
     it("Only the tagged movies are listed.", () => {
-        cy.get(".MuiCardHeader-content").should("have.length", 2);
-        cy.get(".MuiCardHeader-content")
-          .eq(0)
-          .find("p")
-          .contains(movies[1].title);
-        cy.get(".MuiCardHeader-content")
-          .eq(1)
-          .find("p")
-          .contains(movies[0].title);
+        cy.checkMoviesLength(2);
+        cy.checkMoviesExist(0, movies[1].title);
+        cy.checkMoviesExist(1, movies[0].title);
       });
   });
 
   describe("Check details for each movie appears.", () => {
     it("Enter the details page of Blade Runner 2049.", () => {
-        cy.get(".MuiCardActions-root").eq(1).contains("More Info").click();
-        cy.url().should("include", `/movies/${movies[0].id}`);
+        cy.getDetails(1, movies[0].id);
     });
   });
 
   describe("Check reviews for Blade Runner 2049.", () => {
     it("Click reviews floating action button & check reviews.", () => {
-        cy.get(".MuiFab-root").contains("Reviews").click();
-        cy.get(".MuiTableCell-body").contains("Full Review").click();
-        cy.url().should("include", `/reviews/`);
+    cy.checkReview()
     });
   });
 });

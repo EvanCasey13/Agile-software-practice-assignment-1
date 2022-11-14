@@ -14,6 +14,8 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { auth, db, logout } from "../../firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
+import Fade from '@mui/material/Fade';
+import Link from '@mui/material/Link';
 
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
@@ -35,7 +37,6 @@ const SiteHeader = ( ) => {
       setName(data.name);
     } catch (err) {
       console.error(err);
-      alert("An error occured while fetching user data");
     }
   };
   useEffect(() => {
@@ -48,9 +49,15 @@ const SiteHeader = ( ) => {
     { label: "Upcoming", path: "/movies/upcoming" },
     { label: "TV Shows", path: "/shows/popular" },
     { label: "Actors", path: "/actors/popular" },
-    { label: "Search", path: "/search" },
     { label: "Register", path: "/register" },
-    { label: "Login", path: "/login" },  ];
+    { label: "Login", path: "/login" },
+    { label: user?.email }  ];
+
+    const searchSubMenuOptions = [
+      { label: "Movies", path: "movies/search" },
+      { label: "Actors", path: "actors/search" },
+      { label: "TV Shows", path: "shows/search" }  
+    ];
 
   const handleMenuSelect = (pageURL) => {
     navigate(pageURL, { replace: true });
@@ -60,12 +67,14 @@ const SiteHeader = ( ) => {
     setAnchorEl(event.currentTarget);
   };
 
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
   return (
     <>
       <AppBar position="fixed" color="secondary">
         <Toolbar>
-          <div>{user?.displayName}</div>
-         <div id ="user_display_email">{user?.email}</div>
           <Typography variant="h4" sx={{ flexGrow: 1 }}>
             TMDB Client
           </Typography>
@@ -118,6 +127,35 @@ const SiteHeader = ( ) => {
                     Logout
                     
                   </Button>
+        <Button
+        id="fade-button"
+        aria-controls={open ? 'fade-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}
+        color="inherit"
+      >
+        Search
+      </Button>
+      <Menu
+        id="fade-menu"
+        MenuListProps={{
+          'aria-labelledby': 'fade-button',
+        }}
+        anchorEl={anchorEl}
+        open={open}
+        onClose={() => setAnchorEl(null)}
+        TransitionComponent={Fade}
+      >
+        {searchSubMenuOptions.map((opt) => (
+                    <MenuItem
+                      key={opt.label}
+                      onClick={() => handleMenuSelect(opt.path)}
+                    >
+                      {opt.label}
+                    </MenuItem>
+                  ))}
+      </Menu>
                 {menuOptions.map((opt) => (
                   <Button
                     key={opt.label}

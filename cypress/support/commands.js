@@ -1,25 +1,35 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.add('clickButton', (label) => {
+    cy.get('button').contains(label).click()
+  });
+
+  Cypress.Commands.add('addToFavourites', (index) => {
+    cy.get("button[aria-label='add to favorites']").eq(index).click();
+  });
+
+  Cypress.Commands.add('search', (query) => {
+    cy.get("#filled-search").clear().type(query);   
+  });
+
+  Cypress.Commands.add('checkMoviesExist', (index, title) => {
+    cy.get(".MuiCardHeader-content")
+          .eq(index)
+          .find("p")
+          .contains(title);   
+  });
+
+  Cypress.Commands.add('checkMoviesLength', (number) => {
+    cy.get(".MuiCardHeader-content").should("have.length", number);
+  });
+
+  Cypress.Commands.add('getDetails', (index, id) => {
+    cy.get(".MuiCardActions-root").eq(index).contains("More Info").click();
+    cy.url().should("include", `/movies/${id}`);
+  });
+
+  Cypress.Commands.add('checkReview', () => {
+    cy.get(".MuiFab-root").contains("Reviews").click();
+    cy.get(".MuiTableCell-body").contains("Full Review").click();
+    cy.url().should("include", `/reviews/`);
+  });
+
+
