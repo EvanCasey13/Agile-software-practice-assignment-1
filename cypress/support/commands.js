@@ -32,4 +32,26 @@ Cypress.Commands.add('clickButton', (label) => {
     cy.url().should("include", `/reviews/`);
   });
 
+Cypress.Commands.add('checkRedHeartExists', (index) => {
+    cy.get(".MuiCardHeader-root").eq(index).find("svg").should("not.exist");
+    cy.get("button[aria-label='add to favorites']").eq(index).click();
+    cy.get(".MuiCardHeader-root").eq(index).find("svg");
+  });
+
+Cypress.Commands.add('clickReviewButton', (index) => {
+    cy.get("svg[data-testid='RateReviewIcon'").eq(index).click();
+});
+
+Cypress.Commands.add('addReview', (name, reviewContent) => {
+    cy.get("#author").clear().type(name); 
+    cy.get("#review").clear().type(reviewContent); 
+    cy.get("#select-rating").click();
+
+    cy.contains('Excellent').click()
+
+    cy.get(".MuiButtonBase-root").contains("Submit").click();
+
+    cy.get("svg[data-testid='CloseIcon'").click();
+});
+
 
