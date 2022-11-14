@@ -54,6 +54,10 @@ Cypress.Commands.add('addReview', (name, reviewContent) => {
     cy.get("svg[data-testid='CloseIcon'").click();
 });
 
+Cypress.Commands.add('removeFavourite', (index) => {
+  cy.get("button[aria-label='remove from favorites']").eq(index).click();
+});
+
   Cypress.Commands.add('Login', (email, password) => {
     cy.get("#login-email").clear().type(email); 
     cy.get("#login-password").clear().type(password); 
