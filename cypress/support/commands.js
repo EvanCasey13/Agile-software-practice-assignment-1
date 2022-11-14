@@ -81,3 +81,7 @@ Cypress.Commands.add('addReview', (name, reviewContent) => {
     cy.get(".MuiCardActions-root").eq(index).contains("More Info").click();
     cy.url().should("include", `/shows/${id}`);
   });
+
+  Cypress.Commands.add('pagination', (index) => {
+    cy.get(".MuiPaginationItem-root").eq(index).contains(2).click();
+  });
