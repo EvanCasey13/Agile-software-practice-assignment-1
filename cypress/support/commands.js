@@ -72,3 +72,16 @@ Cypress.Commands.add('addReview', (name, reviewContent) => {
     cy.get("#register_movie_app_button").contains("Register").click();
   });
 
+  Cypress.Commands.add('getActorDetails', (index, id) => {
+    cy.get(".MuiCardActions-root").eq(index).contains("More Info").click();
+    cy.url().should("include", `/actors/${id}`);
+  });
+
+  Cypress.Commands.add('getShowDetails', (index, id) => {
+    cy.get(".MuiCardActions-root").eq(index).contains("More Info").click();
+    cy.url().should("include", `/shows/${id}`);
+  });
+
+  Cypress.Commands.add('pagination', (index) => {
+    cy.get(".MuiPaginationItem-root").eq(index).contains(2).click();
+  });
