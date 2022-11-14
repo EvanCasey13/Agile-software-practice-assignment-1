@@ -50,8 +50,7 @@ const SiteHeader = ( ) => {
     { label: "TV Shows", path: "/shows/popular" },
     { label: "Actors", path: "/actors/popular" },
     { label: "Register", path: "/register" },
-    { label: "Login", path: "/login" },
-    { label: user?.email }  ];
+    { label: "Login", path: "/login" }  ];
 
     const searchSubMenuOptions = [
       { label: "Movies", path: "movies/search" },
@@ -75,6 +74,7 @@ const SiteHeader = ( ) => {
     <>
       <AppBar position="fixed" color="secondary">
         <Toolbar>
+        <div id ="user_display_email">{user?.email}</div>
           <Typography variant="h4" sx={{ flexGrow: 1 }}>
             TMDB Client
           </Typography>
