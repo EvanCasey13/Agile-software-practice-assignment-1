@@ -76,3 +76,8 @@ Cypress.Commands.add('addReview', (name, reviewContent) => {
     cy.get(".MuiCardActions-root").eq(index).contains("More Info").click();
     cy.url().should("include", `/actors/${id}`);
   });
+
+  Cypress.Commands.add('getShowDetails', (index, id) => {
+    cy.get(".MuiCardActions-root").eq(index).contains("More Info").click();
+    cy.url().should("include", `/shows/${id}`);
+  });
