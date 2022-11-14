@@ -64,3 +64,11 @@ Cypress.Commands.add('addReview', (name, reviewContent) => {
     cy.get("#user_display_email").contains(email);
   });
 
+  Cypress.Commands.add('Register', (accountName, email, password) => {
+    cy.get("#registration-name").clear().type(accountName);   
+    cy.get("#registration-email").clear().type(email); 
+    cy.get("#registration-password").clear().type(password); 
+
+    cy.get("#register_movie_app_button").contains("Register").click();
+  });
+
