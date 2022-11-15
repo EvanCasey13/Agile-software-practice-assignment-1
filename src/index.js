@@ -1,16 +1,9 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Navigate, Routes} from "react-router-dom";
 import HomePage from "./pages/homePage";
-import MoviePage from "./pages/movieDetailsPage";
 import FavoriteMoviesPage from "./pages/favoriteMoviesPage";
-import MovieReviewPage from "./pages/movieReviewPage";
 import UpcomingMoviesPage from "./pages/upcomingMoviesPage";
-import ShowPage from "./pages/tvDetailsPage";
-import ActorPage from "./pages/actorDetailsPage";
 import TvPopularPage from "./pages/tvPopularPage";
-import SearchMoviePage from "./pages/searchMoviePage";
-import SearchShowPage from "./pages/searchTVShowPage";
-import SearchActorPage from "./pages/searchActorPage";
 import ActorPopularPage from "./pages/actorsPage";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
@@ -21,6 +14,13 @@ import { ReactQueryDevtools } from 'react-query/devtools'
 import { createRoot } from "react-dom/client";
 import { AuthProvider } from "./AuthProvider";
 import MoviesContextProvider from "./contexts/moviesContext";
+const MoviePage = lazy(() => import("./pages/movieDetailsPage"));
+const ShowPage = lazy(() => import("./pages/tvDetailsPage"));
+const ActorPage = lazy(() => import("./pages/actorDetailsPage"));
+const MovieReviewPage = lazy(() => import("./pages/movieReviewPage"));
+const SearchMoviePage = lazy(() => import("./pages/searchMoviePage"));
+const SearchShowPage = lazy(() => import("./pages/searchTVShowPage"));
+const SearchActorPage = lazy(() => import("./pages/searchActorPage"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -39,6 +39,7 @@ const App = () => {
     <BrowserRouter>
     <MoviesContextProvider>
     <AuthProvider>
+    <Suspense fallback={<h1>Loading page</h1>}>
     <Routes>
     <Route path="/shows/popular" element={<TvPopularPage />} />
       <Route path="/actors/popular" element={<ActorPopularPage />} />
@@ -58,6 +59,7 @@ const App = () => {
       <Route path="/" element={<HomePage />} />
       <Route path="*" element={ <Navigate to="/" /> } />
     </Routes>
+    </Suspense>
     </AuthProvider>
     </MoviesContextProvider>
   </BrowserRouter>
