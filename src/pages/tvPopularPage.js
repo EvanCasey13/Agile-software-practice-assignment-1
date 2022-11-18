@@ -41,7 +41,7 @@ const TvPopularPage = (props) => {
       shows={shows}
     />
     <Pagination
-    count="100"
+    count={100}
     variant='outlined'
     color='primary'
     shape="rounded"

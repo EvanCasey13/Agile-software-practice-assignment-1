@@ -23,7 +23,7 @@ describe("Navigate to search actor page.", () => {
     });
   });
 
-  describe("Enter Cliian Murphy and search for that actor.", () => {
+  describe("Enter Cillian Murphy and search for that actor.", () => {
     it("Cillian Murphy searched for.", () => {
         cy.search('Cillian Murphy');   
     });
