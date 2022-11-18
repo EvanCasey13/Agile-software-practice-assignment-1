@@ -43,6 +43,8 @@ All tests in this test suite use Cypress custom commands located in the commands
 
 ### Bundling/Code splitting
 
+When running npm build you will first need to remove the 'CI=false &&' inside of the build script located in the package.json folder, this was included as on GitLab warnings are treated as errors and thus was preventing my pipeline from passing. Since this is the case you will need to add 'CI=false && react-scripts build' as your build script if you are trying to run the pipeline on GitLab. 
+
 I updated the application to use Bundling and Code splitting which can be seen in the index.js file located in the src folder & inside of the templateActorListPage, 
 templateMovieListPage & templateShowListPage index.js files.
 
