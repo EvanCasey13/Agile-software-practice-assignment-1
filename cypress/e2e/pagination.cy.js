@@ -2,7 +2,7 @@ import '../support/commands'
 
 let movies;
 
-describe("The review feature", () => {
+describe("The pagination feature", () => {
     before(() => {
         cy.request(
           `https://api.themoviedb.org/3/discover/movie?api_key=${Cypress.env(
